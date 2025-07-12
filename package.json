@@ -1,0 +1,34 @@
+{
+  "name": "pnpm-monorepo-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deps:verify": "node scripts/verify-lockfile.js",
+    "sdk:prepare": "node scripts/prepare-sdk.js",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "depcheck": "^1.4.7",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2"
+  },
+  "dependencies": {
+    "chalk": "^5.4.0",
+    "eslint": "^9.31.0",
+    "react": "^19.1.0"
+  },
+  "lint-staged": {
+     "package.json": ["node ./scripts/check-lockfile.js","git add"]
+  }
+}
