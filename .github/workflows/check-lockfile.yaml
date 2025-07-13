@@ -13,10 +13,11 @@ jobs:
 
       - name: Get PNPM version
         id: pnpm-version
-        run: |
+        # 获取 pnpm 版本（需与本地一致）
+        run: |   
           VERSION=$(jq -r '.packageManager | split("@")[1]' package.json)
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT  
+
       - name: Setup PNPM
         uses: pnpm/action-setup@v4 # 安装 pnpm
         with:
@@ -29,4 +30,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Check Lockfile
-        run: pnpm install --frozen-lockfile  # 核心检查命令
+        # 核心检查命令  
+        run: |
+          pnpm install --frozen-lockfile  
+          npm run deps:verifylock

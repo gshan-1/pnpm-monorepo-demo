@@ -82,8 +82,10 @@ child_process: https://nodejs.cn/api/child_process.html#child_processexecsynccom
     }
 ```
 2. 正确获取ci脚本中的pnpm版本号
-3. 修改根目录或子项目中包的声明版本，且不执行pnpm i对pnpm-lock进行更新，执行add、commit、push；在仓库的commit记录中查看CI脚本执行的结果：
+3. 反向验证：修改根目录或子项目中包的声明版本，且不执行pnpm i对pnpm-lock进行更新，执行add、commit、push；在仓库的commit记录中查看CI脚本执行的结果：
     ![alt text](image-1.png)
+4. 正向验证：执行pnpm i对pnpm-lock进行更新，重新查看结果
+    ![alt text](image-2.png)
 
 
 ### sdk依赖自动注入

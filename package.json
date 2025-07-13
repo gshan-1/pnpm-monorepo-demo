@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deps:verify": "node scripts/verify-lockfile.js",
+    "deps:verifylock": "node scripts/check-lockfile.js",
     "sdk:prepare": "node scripts/prepare-sdk.js",
     "prepare": "husky"
   },
@@ -26,7 +26,7 @@
   "dependencies": {
     "chalk": "^5.4.0",
     "eslint": "^9.31.0",
-    "react": "^19.1.0"
+    "react": "^18.1.0"
   },
   "lint-staged": {
     "package.json":[]
