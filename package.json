@@ -26,9 +26,6 @@
   "dependencies": {
     "chalk": "^5.4.0",
     "eslint": "^9.31.0",
-    "react": "^19.1.0"
-  },
-  "lint-staged": {
-     "package.json": ["node ./scripts/check-lockfile.js","git add"]
+    "react": "^18.1.0"
   }
 }
