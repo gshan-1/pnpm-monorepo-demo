@@ -1,0 +1,26 @@
+name: Lockfile Check
+on:
+  push:
+    branches: [main]
+  pull_request: 
+
+jobs:
+  verify-lockfile:
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: Checkout Code
+        uses: actions/checkout@v4  # 检出代码
+
+      - name: Setup PNPM
+        uses: pnpm/pnpm/action-setup@v4 # 安装 pnpm
+        with:
+          version: 10             # 指定 pnpm 版本（需与本地一致）
+          
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.18.0         # 指定 Node 版本（与项目一致）
+          cache: 'pnpm'
+
+      - name: Check Lockfile
+        run: pnpm install --frozen-lockfile  # 核心检查命令

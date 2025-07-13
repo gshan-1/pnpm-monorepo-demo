@@ -59,8 +59,8 @@ child_process: https://nodejs.cn/api/child_process.html#child_processexecsynccom
 通过 Husky 在 pre-commit 阶段触发 lint-staged：npx husky add .husky/pre-commit "npx lint-staged"
 
 ##### 测试
-1. 修改根目录package.json的版本号，不执行pnpm install，使得锁文件未更新。
-执行git commit，得到
+1. 修改根目录/子项目中 package.json 的版本号，不执行 pnpm install，使得锁文件处于未更新。
+执行git add . && git commit，得到
 ![alt text](image.png)
 
 
