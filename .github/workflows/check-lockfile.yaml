@@ -30,7 +30,6 @@ jobs:
           cache: 'pnpm'
 
       - name: Check Lockfile
-        # 核心检查命令  
+        # 核心检查命令   pnpm install --frozen-lockfile  
         run: |
-          pnpm install --frozen-lockfile  
           npm run deps:verifylock
