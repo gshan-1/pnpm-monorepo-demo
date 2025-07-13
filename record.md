@@ -22,6 +22,7 @@
     疑问：如何确定哪些是重复依赖？
     - 统一版本
     疑问：上述命令能否写入脚本？
+#### 测试
 ### 无用依赖：
     - 检测并删除
         - 根目录 pnpm add -wD depcheck && npx depcheck 找到未使用的运行和开发时依赖
@@ -34,7 +35,7 @@
         * depcheck
         * webpack
         * eslint
-
+#### 测试
 ### 锁文件一致性
 #### 前置条件：限制node、pnpm版本一致
 1. 在 package.json 中通过 engines 字段声明，设置版本：
@@ -59,11 +60,27 @@ child_process: https://nodejs.cn/api/child_process.html#child_processexecsynccom
 通过 Husky 在 pre-commit 阶段触发 lint-staged：npx husky add .husky/pre-commit "npx lint-staged"
 
 ##### 测试
-1. 修改根目录/子项目中 package.json 的版本号，不执行 pnpm install，使得锁文件处于未更新。
+修改根目录/子项目中 package.json 的版本号，不执行 pnpm install，使得锁文件处于未更新。
 执行git add . && git commit，得到
 ![alt text](image.png)
 
+#### 线上CI构建保证
+1. 编写CI脚本
+    了解脚本相关知识：
+        GitHub Actions：https://docs.github.com/zh/actions/get-started/understanding-github-actions#the-components-of-github-actions
+        关于工作流程：https://docs.github.com/zh/actions/concepts/workflows-and-actions/about-workflows#understanding-the-workflow-file
+        CI——Continuous integration  持续集成：https://docs.github.com/zh/actions/concepts/overview/continuous-integration
+        pnpm ci：https://www.pnpm.cn/continuous-integration
+##### 测试
+1lint-staged配置置空，避免在pre-commit时提前判断
+```js
+    "lint-staged": {
+        "package.json":[]
+    }
+```
 
+
+### sdk依赖自动注入
 
 ## 知识补充
 ### 项目的模块模式
@@ -90,5 +107,7 @@ child_process: https://nodejs.cn/api/child_process.html#child_processexecsynccom
 git hooks和脚本的关系是父子进程？
 
 ## 过程中遇到的问题
+### github网页版中添加了文件，本地拉取时报错
+参考：https://juejin.cn/post/7498186537013149734
 
 
