@@ -8,15 +8,15 @@ jobs:
   verify-lockfile:
     runs-on: ubuntu-latest 
     steps: 
+      - name: Checkout Code
+        uses: actions/checkout@v4  # 检出代码
+
       - name: Get PNPM version
         id: pnpm-version
         run: |
           VERSION=$(jq -r '.packageManager | split("@")[1]' package.json)
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
-
-      - name: Checkout Code
-        uses: actions/checkout@v4  # 检出代码
-
+          
       - name: Setup PNPM
         uses: pnpm/action-setup@v4 # 安装 pnpm
         with:
