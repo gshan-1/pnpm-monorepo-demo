@@ -27,5 +27,8 @@
     "chalk": "^5.4.0",
     "eslint": "^9.31.0",
     "react": "^18.1.0"
+  },
+  "lint-staged": {
+    "package.json":[]
   }
 }
