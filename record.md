@@ -66,18 +66,24 @@ child_process: https://nodejs.cn/api/child_process.html#child_processexecsynccom
 
 #### 线上CI构建保证
 1. 编写CI脚本
-    了解脚本相关知识：
+    - 了解脚本相关知识：
         GitHub Actions：https://docs.github.com/zh/actions/get-started/understanding-github-actions#the-components-of-github-actions
         关于工作流程：https://docs.github.com/zh/actions/concepts/workflows-and-actions/about-workflows#understanding-the-workflow-file
         CI——Continuous integration  持续集成：https://docs.github.com/zh/actions/concepts/overview/continuous-integration
-        pnpm ci：https://www.pnpm.cn/continuous-integration
+        pnpm ci：https://www.pnpm.cn/continuous-integratio
+    - pnpm版本号获取：
+        1. 需要在代码检出后；
+        2. 本地一致，否则会报错。
 ##### 测试
-1lint-staged配置置空，避免在pre-commit时提前判断
+1. lint-staged配置置空，避免在pre-commit时提前判断
 ```js
     "lint-staged": {
         "package.json":[]
     }
 ```
+2. 正确获取ci脚本中的pnpm版本号
+3. 修改根目录或子项目中包的声明版本，且不执行pnpm i对pnpm-lock进行更新，执行add、commit、push；在仓库的commit记录中查看CI脚本执行的结果：
+    ![alt text](image-1.png)
 
 
 ### sdk依赖自动注入
