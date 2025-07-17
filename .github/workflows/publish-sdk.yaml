@@ -39,7 +39,7 @@ jobs:
 
       - name: Inject dependencies (ESM)
         run: |
-          node --input-type=module scripts/inject-deps.js
+          node --input-type=module scripts/dep-inject.js
           echo "=== Generated package.json ==="
           cat packages/sdk/dist/package.json
 

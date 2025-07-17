@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from 'lodash-es';
 
 // 示例：使用 _.merge 合并对象
 const obj1 = { a: 1, b: 2 };
