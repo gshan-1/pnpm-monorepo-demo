@@ -89,24 +89,26 @@ child_process: https://nodejs.cn/api/child_process.html#child_processexecsynccom
 
 
 ### sdk依赖自动注入
-#### 写脚本
-#### 发包测试
-发包步骤：npm pack + npm publish(需要注册npm账号 turingg，包名从sdk改成@turingg/sdk，包名需要有唯一性和合法性)
-前置条件：根目录.npmrc中设置auto-install-peers=false，模拟不自动安装peerdep包。因为 pnpm 7.1.4+ 和 npm 7+版本之后自动安装对等依赖。
+#### 写js脚本
+#### 写CI/CD脚本
+需要从npm获取有publish权限的TOKEN，在gtihub中的Secret设置 NPM_TOKEN
 
+#### 发包测试
+- 发包步骤：npm pack + npm publish(需要注册npm账号 turingg，包名从sdk改成@turingg/sdk，包名需要有唯一性和合法性)
+- 前置条件：根目录.npmrc中设置auto-install-peers=false，模拟不自动安装peerdep包。因为 pnpm 7.1.4+ 和 npm 7+版本之后自动安装对等依赖。
+
+--- 
 - 对照组：发布时只有 peerDep ，test中引用sdk包，通过pnpm add安装。根目录的node_modules/.pnpm下，**没有**下载sdk的间接依赖。
     ![alt text](image-3.png)
     补充：npm i的话会自动安装，需要npm 7+版本。
 
-1. 实验组1：使用脚本，将peerDep复制到dep，再发包（1.0.4）。然后在test中引入安装。根目录的node_modules下，有sdk包和间接依赖的软连接
+- 实验组1：使用脚本，将peerDep复制到dep，再发包（1.0.4）。然后在test中引入安装。根目录的node_modules下，有sdk包和间接依赖的软连接
 ![alt text](image-4.png)
     疑惑：和对照组一样？
-2. 
-  "peerDependencies": {
-    "react": "^18.0.0",
-    "lodash-es": "^4.17.21"
-  },
-2. 
+
+---
+
+
 
 ## 知识补充
 ### 项目的模块模式
@@ -147,3 +149,5 @@ git hooks和脚本的关系是父子进程？
 解决：
     刚开始改成@gsh/sdk@1.0.0，提示'@gsh/sdk@1.0.0' is not in this registry.
     后面意识到应该要改为@turingg/sdk@1.0.0，成功✅
+
+
