@@ -1,0 +1,50 @@
+# .github/workflows/publish.yml
+name: Publish SDK
+on:
+  #监听 GitHub 仓库的 Release 事件
+  release:
+    # 限定只有 发布新版本（Release published） 时触发
+    types: [published]
+
+jobs:
+  publish-sdk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Get PNPM version
+        id: pnpm-version
+        # 获取 pnpm 版本（需与本地一致）
+        run: |   
+          VERSION=$(jq -r '.packageManager | split("@")[1]' package.json)
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT  
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4 # 安装 pnpm
+        with:
+          version: ${{ steps.pnpm-version.outputs.version }}       # 指定 pnpm 版本（需与本地一致）
+          
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build SDK
+        run: pnpm --filter sdk run build
+
+      - name: Inject dependencies (ESM)
+        run: |
+          node --input-type=module scripts/inject-deps.js
+          echo "=== Generated package.json ==="
+          cat packages/sdk/dist/package.json
+
+      - name: Publish to npm
+        working-directory: packages/sdk/dist
+        run: |
+          npm publish --access public
