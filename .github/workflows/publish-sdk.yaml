@@ -13,12 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
-
       - name: Get PNPM version
         id: pnpm-version
         # 获取 pnpm 版本（需与本地一致）
@@ -30,7 +24,12 @@ jobs:
         uses: pnpm/action-setup@v4 # 安装 pnpm
         with:
           version: ${{ steps.pnpm-version.outputs.version }}       # 指定 pnpm 版本（需与本地一致）
-          
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
