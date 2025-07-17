@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20.18.0         # 指定 Node 版本（与项目一致）
-          cache: 'pnpm'
+          #cache: 'pnpm'
 
       - name: Check Lockfile
         # 核心检查命令   pnpm install --frozen-lockfile  
