@@ -44,6 +44,8 @@ jobs:
           cat packages/sdk/dist/package.json
 
       - name: Publish to npm
-        working-directory: packages/sdk/dist
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
           npm publish --access public
